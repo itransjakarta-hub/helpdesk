@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IT Helpdesk | Transjakarta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-main: #0A4DA2;
+      --blue-light: #2E7DD7;
+      --blue-soft: #EAF2FB;
+      --white: #ffffff;
+      --gray: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, var(--blue-soft), var(--white));
+      color: #1f2937;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: var(--white);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    }
+
+    header img {
+      height: 56px;
+    }
+
+    header h1 {
+      font-size: 22px;
+      color: var(--blue-main);
+      margin: 0 0 0 12px;
+      font-weight: 600;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .hero {
+      padding: 80px 48px 60px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--blue-main);
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--gray);
+      max-width: 640px;
+      margin: 0 auto 48px;
+    }
+
+    .menu-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 20px 40px rgba(10,77,162,0.12);
+      transition: all 0.3s ease;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--blue-main), var(--blue-light));
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(10,77,162,0.2);
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--blue-main);
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+
+    .card a {
+      display: inline-block;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, var(--blue-main), var(--blue-light));
+      color: var(--white);
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s ease;
+    }
+
+    .card a:hover {
+      opacity: 0.9;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 28px;
+      }
+
+      header {
+        padding: 16px 24px;
+      }
+
+      .hero {
+        padding: 60px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <img src="logo_tj.png" alt="Logo Transjakarta" />
+      <h1>IT Helpdesk</h1>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h2>IT Helpdesk System</h2>
+    <p>Portal layanan IT untuk pelaporan, pelaksanaan pekerjaan, dan pemeriksaan perangkat secara terstruktur, cepat, dan terdokumentasi.</p>
+
+    <div class="menu-container">
+      <div class="card">
+        <h3>Form Pelaksanaan Pekerjaan</h3>
+        <p>Digunakan untuk mencatat dan mendokumentasikan aktivitas pelaksanaan pekerjaan IT secara detail dan akurat.</p>
+        <a href="#">Buka Form</a>
+      </div>
+
+      <div class="card">
+        <h3>Form Pemeriksaan Perangkat</h3>
+        <p>Form pengecekan kondisi perangkat IT untuk memastikan kelayakan, fungsi, dan kesiapan operasional.</p>
+        <a href="#">Buka Form</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 IT Helpdesk System · All rights reserved
+  </footer>
+
+</body>
+</html>
