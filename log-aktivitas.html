@@ -1,75 +1,81 @@
-document.addEventListener("DOMContentLoaded", function () {
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Log Helpdesk</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-  const kegiatanSelect = document.getElementById('kegiatan');
-  const detailTextarea = document.getElementById('detailKegiatan');
+<header class="header">
+  <div class="header-left">
+    <img src="logo.png" alt="Logo Transjakarta">
+    <div>
+      <h1>Log Aktivitas Helpdesk</h1>
+      <p>Form pencatatan aktivitas engineer</p>
+    </div>
+  </div>
+</header>
+
+<form id="logForm">
   
-  const templates = {
-    Pengiriman: "Pengiriman perangkat ke lokasi ...",
-    Pemeriksaan: "Pemeriksaan kondisi perangkat ...",
-    Pemasangan: "Pemasangan perangkat di ...",
-    Perbaikan: "Perbaikan perangkat karena ...",
-    Pengembalian: "Pengembalian perangkat ke ...",
-    Pemindahan: "Pemindahan perangkat dari ... ke ..."
-  };
+  <!-- SECTION 1 -->
+  <section class="card">
+  <h2>Detail Informasi</h2>
 
-  kegiatanSelect.addEventListener('change', () => {
-    if (kegiatanSelect.value !== "") {
-      detailTextarea.disabled = false;
-      detailTextarea.value = templates[kegiatanSelect.value] || "";
-      detailTextarea.focus();
-    } else {
-      detailTextarea.disabled = true;
-      detailTextarea.value = "";
-    }
-  });
+  <input placeholder="Nama Engineer" required>
+  <input placeholder="NIK Engineer" required>
+  <input placeholder="Jabatan Engineer" required>
+  <input type="date" required>
+  <input type="time" required>
+
+  <!-- Kegiatan -->
+  <label for="kegiatan">Kegiatan yang Dilakukan</label>
+  <select id="kegiatan" required>
+    <option value="">-- Pilih Kegiatan --</option>
+    <option value="Pengiriman">Pengiriman</option>
+    <option value="Pemeriksaan">Pemeriksaan</option>
+    <option value="Pemasangan">Pemasangan</option>
+    <option value="Perbaikan">Perbaikan</option>
+    <option value="Pengembalian">Pengembalian</option>
+    <option value="Pemindahan">Pemindahan</option>
+  </select>
+
+  <!-- Detail kegiatan -->
+  <label for="detailKegiatan">Detail Kegiatan</label>
+  <textarea
+    id="detailKegiatan"
+    placeholder="Jelaskan detail kegiatan..."
+    rows="3"
+    disabled
+    required
+  ></textarea>
+
+</section>
 
 
-  const devicesDiv = document.getElementById('devices');
-  const addBtn = document.getElementById('addDevice');
+  <!-- SECTION 2 -->
+  <section class="card">
+    <h2>Detail User</h2>
+    <input placeholder="Nama User" required>
+    <input placeholder="NIK User" required>
+    <input placeholder="Jabatan User" required>
+  </section>
 
-  function renderDevices() {
-    const boxes = devicesDiv.querySelectorAll('.device-box');
-    boxes.forEach((box, index) => {
-      box.querySelector('h3').innerText = `Perangkat ${index + 1}`;
-    });
-  }
+  <!-- SECTION 3 -->
+  <section class="card">
+    <h2>Detail Perangkat</h2>
+    <div id="devices"></div>
+    <button type="button" id="addDevice">+ Tambah Perangkat</button>
+  </section>
 
-  function addDevice() {
-    const div = document.createElement('div');
-    div.className = "device-box";
+  <button type="submit" class="submit-btn">Submit</button>
 
-    div.innerHTML = `
-      <h3>Perangkat</h3>
+</form>
 
-      <input placeholder="Nama Barang" required>
-      <input placeholder="Merk & Model" required>
-      <input placeholder="Nomor Seri" required>
+<script src="script.js"></script>
+</body>
+</html>
 
-      <select required>
-        <option value="">-- Pilih Kondisi --</option>
-        <option value="Baik">Baik</option>
-        <option value="Rusak Ringan">Rusak Ringan</option>
-        <option value="Rusak Berat">Rusak Berat</option>
-        <option value="Hilang">Hilang</option>
-      </select>
-
-      <button type="button" class="delete-btn">Hapus</button>
-    `;
-
-    div.querySelector('.delete-btn').addEventListener('click', () => {
-      div.remove();
-      renderDevices();
-    });
-
-    devicesDiv.appendChild(div);
-    renderDevices();
-  }
-
-  addBtn.addEventListener('click', addDevice);
-
-  // default 1 perangkat
-  addDevice();
-
-});
 
 
