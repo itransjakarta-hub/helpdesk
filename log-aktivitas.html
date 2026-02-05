@@ -22,16 +22,16 @@
   <!-- SECTION 1 -->
   <section class="card">
   <h2>Detail Informasi</h2>
-
-  <input placeholder="Nama Engineer" required>
-  <input placeholder="NIK Engineer" required>
-  <input placeholder="Jabatan Engineer" required>
-  <input type="date" required>
-  <input type="time" required>
+  
+  <input name="namaEngineer" placeholder="Nama Engineer" required>
+  <input name="nikEngineer" placeholder="NIK Engineer" required>
+  <input name="jabatanEngineer" placeholder="Jabatan Engineer" required>
+  <input name="tanggal" type="date" required>
+  <input name="jam" type="time" required>
 
   <!-- Kegiatan -->
   <label for="kegiatan">Kegiatan yang Dilakukan</label>
-  <select id="kegiatan" required>
+  <select id="kegiatan" name="kegiatan" required>
     <option value="">-- Pilih Kegiatan --</option>
     <option value="Pengiriman">Pengiriman</option>
     <option value="Pemeriksaan">Pemeriksaan</option>
@@ -45,9 +45,7 @@
   <label for="detailKegiatan">Detail Kegiatan</label>
   <textarea
     id="detailKegiatan"
-    placeholder="Jelaskan detail kegiatan..."
-    rows="3"
-    disabled
+    name="detailKegiatan"
     required
   ></textarea>
 
@@ -57,9 +55,9 @@
   <!-- SECTION 2 -->
   <section class="card">
     <h2>Detail User</h2>
-    <input placeholder="Nama User" required>
-    <input placeholder="NIK User" required>
-    <input placeholder="Jabatan User" required>
+    <input name="namaUser" placeholder="Nama User" required>
+    <input name="nikUser" placeholder="NIK User" required>
+    <input name="jabatanUser" placeholder="Jabatan User" required>
   </section>
 
   <!-- SECTION 3 -->
@@ -74,8 +72,25 @@
 </form>
 
 <script src="script.js"></script>
+
+<!-- LOADING -->
+<div id="loadingOverlay" class="loading hidden">
+  <div class="spinner"></div>
+  <p>Menyimpan data & generate PDF...</p>
+</div>
+
+<!-- MODAL SUCCESS -->
+<div id="successModal" class="modal hidden">
+  <div class="modal-content">
+    <h2>✅ Berhasil!</h2>
+    <div id="previewData"></div>
+
+    <a id="pdfLink" class="pdf-btn" target="_blank">📄 Download PDF</a>
+    
+    <button onclick="closeModal()">Tutup</button>
+  </div>
+</div>
+
+
 </body>
 </html>
-
-
-
