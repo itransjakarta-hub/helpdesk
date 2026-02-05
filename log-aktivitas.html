@@ -1,96 +1,49 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Log Helpdesk</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <title>Log Aktivitas Helpdesk</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="header">
-  <div class="header-left">
-    <img src="logo_tj.png" alt="Logo Transjakarta">
-    <div>
-      <h1>Log Aktivitas Helpdesk</h1>
-      <p>Form pencatatan aktivitas engineer</p>
+  <div class="container">
+    <h1>Log Aktivitas Helpdesk</h1>
+
+    <form id="logForm">
+      <input type="text" id="nama" placeholder="Nama Engineer" required />
+      <input type="text" id="nik" placeholder="NIK Engineer" required />
+      <input type="text" id="jabatan" placeholder="Jabatan Engineer" required />
+
+      <select id="kegiatan" required>
+        <option value="">-- Pilih Kegiatan --</option>
+        <option value="Perbaikan">Perbaikan</option>
+        <option value="Maintenance">Maintenance</option>
+        <option value="Instalasi">Instalasi</option>
+      </select>
+
+      <textarea id="detail" placeholder="Detail kegiatan" disabled></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- LOADING -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loader"></div>
+    <p>Menyimpan data & generate PDF...</p>
+  </div>
+
+  <!-- MODAL SUCCESS -->
+  <div id="successModal" class="modal hidden">
+    <div class="modal-box">
+      <h2>✅ Berhasil</h2>
+      <pre id="previewData"></pre>
+      <button id="downloadPdf">Download PDF</button>
+      <button id="closeModal">Tutup</button>
     </div>
   </div>
-</header>
 
-<form id="logForm">
-  
-  <!-- SECTION 1 -->
-  <section class="card">
-  <h2>Detail Informasi</h2>
-  
-  <input name="namaEngineer" placeholder="Nama Engineer" required>
-  <input name="nikEngineer" placeholder="NIK Engineer" required>
-  <input name="jabatanEngineer" placeholder="Jabatan Engineer" required>
-  <input name="tanggal" type="date" required>
-  <input name="jam" type="time" required>
-
-  <!-- Kegiatan -->
-  <label for="kegiatan">Kegiatan yang Dilakukan</label>
-  <select id="kegiatan" name="kegiatan" required>
-    <option value="">-- Pilih Kegiatan --</option>
-    <option value="Pengiriman">Pengiriman</option>
-    <option value="Pemeriksaan">Pemeriksaan</option>
-    <option value="Pemasangan">Pemasangan</option>
-    <option value="Perbaikan">Perbaikan</option>
-    <option value="Pengembalian">Pengembalian</option>
-    <option value="Pemindahan">Pemindahan</option>
-  </select>
-
-  <!-- Detail kegiatan -->
-  <label for="detailKegiatan">Detail Kegiatan</label>
-  <textarea
-    id="detailKegiatan"
-    name="detailKegiatan"
-    required
-  ></textarea>
-
-</section>
-
-
-  <!-- SECTION 2 -->
-  <section class="card">
-    <h2>Detail User</h2>
-    <input name="namaUser" placeholder="Nama User" required>
-    <input name="nikUser" placeholder="NIK User" required>
-    <input name="jabatanUser" placeholder="Jabatan User" required>
-  </section>
-
-  <!-- SECTION 3 -->
-  <section class="card">
-    <h2>Detail Perangkat</h2>
-    <div id="devices"></div>
-    <button type="button" id="addDevice">+ Tambah Perangkat</button>
-  </section>
-
-  <button type="submit" class="submit-btn">Submit</button>
-
-</form>
-
-<script src="script.js"></script>
-
-<!-- LOADING -->
-<div id="loadingOverlay" class="loading hidden">
-  <div class="spinner"></div>
-  <p>Menyimpan data & generate PDF...</p>
-</div>
-
-<!-- MODAL SUCCESS -->
-<div id="successModal" class="modal hidden">
-  <div class="modal-content">
-    <h2>✅ Berhasil!</h2>
-    <div id="previewData"></div>
-
-    <a id="pdfLink" class="pdf-btn" target="_blank">📄 Download PDF</a>
-    
-    <button onclick="closeModal()">Tutup</button>
-  </div>
-</div>
-
-
+  <script src="script.js"></script>
 </body>
 </html>
