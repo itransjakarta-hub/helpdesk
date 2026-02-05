@@ -1,6 +1,6 @@
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwFuh8_DHL6j38kelemt7aDywhbSoNGEbnV4E8CaQ-LLbIg9keNKcBw5VFRcSjMTVE9/exec";
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
   const form = document.getElementById("logForm");
   const loading = document.getElementById("loadingOverlay");
@@ -8,28 +8,36 @@ document.addEventListener("DOMContentLoaded", function () {
   const preview = document.getElementById("previewData");
   const pdfLink = document.getElementById("pdfLink");
 
-  /* ===== KEGIATAN UX ===== */
+  // ===== KEGIATAN UX =====
   const kegiatanSelect = document.getElementById("kegiatan");
   const detailTextarea = document.getElementById("detailKegiatan");
 
-  kegiatanSelect.addEventListener("change", function () {
-    detailTextarea.disabled = !kegiatanSelect.value;
-    if (!kegiatanSelect.value) detailTextarea.value = "";
+  detailTextarea.disabled = true;
+
+  kegiatanSelect.addEventListener("change", () => {
+    if (kegiatanSelect.value) {
+      detailTextarea.disabled = false;
+      detailTextarea.focus();
+    } else {
+      detailTextarea.disabled = true;
+      detailTextarea.value = "";
+    }
   });
 
-  /* ===== DEVICE ===== */
+  // ===== DEVICE HANDLER =====
   const devicesDiv = document.getElementById("devices");
   const addBtn = document.getElementById("addDevice");
 
   function renderDevices() {
     document.querySelectorAll(".device-box").forEach((box, i) => {
-      box.querySelector("h3").innerText = "Perangkat " + (i + 1);
+      box.querySelector("h3").innerText = `Perangkat ${i + 1}`;
     });
   }
 
   function addDevice() {
     const div = document.createElement("div");
     div.className = "device-box";
+
     div.innerHTML = `
       <h3>Perangkat</h3>
       <input placeholder="Nama Barang" required>
@@ -45,22 +53,22 @@ document.addEventListener("DOMContentLoaded", function () {
       <button type="button" class="delete-btn">Hapus</button>
     `;
 
-    div.querySelector(".delete-btn").onclick = function () {
+    div.querySelector(".delete-btn").addEventListener("click", () => {
       div.remove();
       renderDevices();
-    };
+    });
 
     devicesDiv.appendChild(div);
     renderDevices();
   }
 
-  addBtn.onclick = addDevice;
+  addBtn.addEventListener("click", addDevice);
   addDevice();
 
-  /* ===== SUBMIT ===== */
+  // ===== SUBMIT FORM =====
   form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  loading.classList.remove("hidden");
+    e.preventDefault();
+    loading.classList.remove("hidden");
 
     try {
       const devices = [...document.querySelectorAll(".device-box")].map(b => ({
@@ -69,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
         nomorSeri: b.querySelectorAll("input")[2].value,
         kondisi: b.querySelector("select").value
       }));
-  
+
       const data = {
         namaEngineer: form[0].value,
         nikEngineer: form[1].value,
@@ -83,32 +91,31 @@ document.addEventListener("DOMContentLoaded", function () {
         jabatanUser: form[9].value,
         devices
       };
-  
+
       const res = await fetch(WEB_APP_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       });
-  
+
       const result = await res.json();
-  
-      // 🔥 FIX UTAMA
+
       if (result.status !== "success") {
         throw result.message || "Gagal menyimpan data";
       }
-  
+
       loading.classList.add("hidden");
-  
+
       preview.innerHTML = `
         <p><b>Engineer:</b> ${data.namaEngineer}</p>
         <p><b>Kegiatan:</b> ${data.kegiatan}</p>
         <p><b>User:</b> ${data.namaUser}</p>
         <p><b>Jumlah Perangkat:</b> ${devices.length}</p>
       `;
-  
+
       pdfLink.href = result.pdfUrl;
       modal.classList.add("show");
-  
+
     } catch (err) {
       loading.classList.add("hidden");
       alert("Gagal menyimpan data");
@@ -116,8 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+}); // 🔴 DOMContentLoaded CLOSED PROPERLY
 
-/* ===== CLOSE MODAL ===== */
+// ===== CLOSE MODAL =====
 function closeModal() {
   document.getElementById("successModal").classList.remove("show");
   document.getElementById("logForm").reset();
