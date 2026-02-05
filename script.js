@@ -58,61 +58,64 @@ document.addEventListener("DOMContentLoaded", function () {
   addDevice();
 
   /* ===== SUBMIT ===== */
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    loading.classList.remove("hidden");
+  form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  loading.classList.remove("hidden");
 
-    const devices = Array.from(document.querySelectorAll(".device-box")).map(b => ({
-      namaBarang: b.querySelectorAll("input")[0].value,
-      merkModel: b.querySelectorAll("input")[1].value,
-      nomorSeri: b.querySelectorAll("input")[2].value,
-      kondisi: b.querySelector("select").value
-    }));
-
-    const data = {
-      namaEngineer: form[0].value,
-      nikEngineer: form[1].value,
-      jabatanEngineer: form[2].value,
-      tanggal: form[3].value,
-      jam: form[4].value,
-      kegiatan: form[5].value,
-      detailKegiatan: form[6].value,
-      namaUser: form[7].value,
-      nikUser: form[8].value,
-      jabatanUser: form[9].value,
-      devices
-    };
-
-    fetch(WEB_APP_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(result => {
-      loading.classList.add("hidden");
-
+    try {
+      const devices = [...document.querySelectorAll(".device-box")].map(b => ({
+        namaBarang: b.querySelectorAll("input")[0].value,
+        merkModel: b.querySelectorAll("input")[1].value,
+        nomorSeri: b.querySelectorAll("input")[2].value,
+        kondisi: b.querySelector("select").value
+      }));
+  
+      const data = {
+        namaEngineer: form[0].value,
+        nikEngineer: form[1].value,
+        jabatanEngineer: form[2].value,
+        tanggal: form[3].value,
+        jam: form[4].value,
+        kegiatan: form[5].value,
+        detailKegiatan: form[6].value,
+        namaUser: form[7].value,
+        nikUser: form[8].value,
+        jabatanUser: form[9].value,
+        devices
+      };
+  
+      const res = await fetch(WEB_APP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+  
+      const result = await res.json();
+  
+      // 🔥 FIX UTAMA
       if (result.status !== "success") {
-        throw result.message;
+        throw result.message || "Gagal menyimpan data";
       }
-
+  
+      loading.classList.add("hidden");
+  
       preview.innerHTML = `
         <p><b>Engineer:</b> ${data.namaEngineer}</p>
         <p><b>Kegiatan:</b> ${data.kegiatan}</p>
         <p><b>User:</b> ${data.namaUser}</p>
         <p><b>Jumlah Perangkat:</b> ${devices.length}</p>
       `;
-
+  
       pdfLink.href = result.pdfUrl;
       modal.classList.add("show");
-    })
-    .catch(err => {
+  
+    } catch (err) {
       loading.classList.add("hidden");
       alert("Gagal menyimpan data");
       console.error(err);
-    });
+    }
   });
-});
+
 
 /* ===== CLOSE MODAL ===== */
 function closeModal() {
