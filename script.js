@@ -1,4 +1,3 @@
-<script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwFuh8_DHL6j38kelemt7aDywhbSoNGEbnV4E8CaQ-LLbIg9keNKcBw5VFRcSjMTVE9/exec";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -121,4 +120,3 @@ function closeModal() {
   document.getElementById("logForm").reset();
   document.getElementById("devices").innerHTML = "";
 }
-</script>
